@@ -35,6 +35,8 @@
 {
     sender.selected = !sender.isSelected;
     
+    //todo: perhaps check if the class is infact a PlayingCard before casting it?
+    //[myObject isKindOfClass:[NSString class]]
     PlayingCard *card = (PlayingCard *)[self.deck drawRandomCard];
     
     [sender setTitle:card.contents forState:UIControlStateSelected];
