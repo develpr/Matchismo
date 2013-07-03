@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB7E681E1783DBDF0071D3B4 /* CardMatchingGame.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7E681D1783DBDF0071D3B4 /* CardMatchingGame.m */; };
 		DB8C5FF317740CDA00A0C49D /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = DB8C5FF217740CDA00A0C49D /* PlayingCard.m */; };
 		DB8C5FF617740D0F00A0C49D /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = DB8C5FF517740D0F00A0C49D /* Deck.m */; };
 		DB8C5FF917741ADA00A0C49D /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = DB8C5FF817741ADA00A0C49D /* PlayingCardDeck.m */; };
@@ -25,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB7E681C1783DBDF0071D3B4 /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardMatchingGame.h; path = Model/CardMatchingGame.h; sourceTree = "<group>"; };
+		DB7E681D1783DBDF0071D3B4 /* CardMatchingGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardMatchingGame.m; path = Model/CardMatchingGame.m; sourceTree = "<group>"; };
 		DB8C5FF117740CDA00A0C49D /* PlayingCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCard.h; sourceTree = "<group>"; };
 		DB8C5FF217740CDA00A0C49D /* PlayingCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCard.m; sourceTree = "<group>"; };
 		DB8C5FF417740D0F00A0C49D /* Deck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deck.h; sourceTree = "<group>"; };
@@ -68,6 +71,8 @@
 		DB8C5FFA17741DE200A0C49D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DB7E681C1783DBDF0071D3B4 /* CardMatchingGame.h */,
+				DB7E681D1783DBDF0071D3B4 /* CardMatchingGame.m */,
 				DB8C5FF217740CDA00A0C49D /* PlayingCard.m */,
 				DB8C5FF717741ADA00A0C49D /* PlayingCardDeck.h */,
 				DB8C5FF817741ADA00A0C49D /* PlayingCardDeck.m */,
@@ -209,6 +214,7 @@
 				DB8C5FF317740CDA00A0C49D /* PlayingCard.m in Sources */,
 				DB8C5FF617740D0F00A0C49D /* Deck.m in Sources */,
 				DB8C5FF917741ADA00A0C49D /* PlayingCardDeck.m in Sources */,
+				DB7E681E1783DBDF0071D3B4 /* CardMatchingGame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
