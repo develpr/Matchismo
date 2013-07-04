@@ -85,7 +85,9 @@
         //Set the image background
         if(!card.isFaceUp)
             [cardButton setImage:cardBackImage forState:UIControlStateNormal];
-
+        else
+            [cardButton setImage:nil forState:UIControlStateNormal];
+        
         cardButton.selected = card.isFaceUp;
         cardButton.enabled = !card.isUnplayable;
         
