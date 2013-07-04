@@ -49,6 +49,7 @@
                         card.unplayable = YES;
                         otherCard.unplayable = YES;
                         self.score += matchScore * MATCH_BONUS;
+                        self.lastMessage = [NSString stringWithFormat:@"Matched %@ with %@", card.contents, otherCard.contents];
                     } else{
                         otherCard.faceUp = NO;
                         self.score -= MISMATCH_PENALTY;
