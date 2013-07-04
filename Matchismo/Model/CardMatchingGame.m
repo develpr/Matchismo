@@ -10,6 +10,7 @@
 
 @interface CardMatchingGame()
 @property (readwrite, nonatomic) int score;
+@property (readwrite, nonatomic) NSString *lastMessage;
 @property (strong, nonatomic) NSMutableArray *cards; //of Card
 @end
 
@@ -21,6 +22,14 @@
         _cards = [[NSMutableArray alloc] init];
     
     return _cards;
+}
+
+- (NSString *)lastMessage
+{
+    if(!_lastMessage)
+        _lastMessage = [[NSString alloc] init];
+    
+    return _lastMessage;
 }
 
 #define MATCH_BONUS 4

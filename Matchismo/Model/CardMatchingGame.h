@@ -18,6 +18,7 @@
 - (void)flipCardAtIndex:(NSUInteger) index;
 - (Card *)cardAtIndex:(NSUInteger) index;
 
+@property (readonly, nonatomic) NSString *lastMessage;
 @property (readonly, nonatomic) int score;
 
 
