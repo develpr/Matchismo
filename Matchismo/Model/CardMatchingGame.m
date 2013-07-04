@@ -52,15 +52,17 @@
                         card.unplayable = YES;
                         otherCard.unplayable = YES;
                         self.score += matchScore * MATCH_BONUS;
-                        self.lastMessage = [NSString stringWithFormat:@"Matched %@ with %@ for %d points!", card.contents, otherCard.contents, self.score];
+                        self.lastMessage = [NSString stringWithFormat:@"Matched %@ with %@ for %d points!", card.contents, otherCard.contents, matchScore * MATCH_BONUS];
                     } else{
                         otherCard.faceUp = NO;
-                        self.lastMessage = [NSString stringWithFormat:@"%@ and %@ don't match! %d point penalty!", card.contents, otherCard.contents, self.score];
+                        self.lastMessage = [NSString stringWithFormat:@"%@ and %@ don't match! %d point penalty!", card.contents, otherCard.contents, MISMATCH_PENALTY];
                         self.score -= MISMATCH_PENALTY;
                     }
                     break;
                 }
             }
+            if(self.lastMessage.length < 1)
+                self.lastMessage = @"-1 point for swapping a card!";
             self.score -= FLIP_COST;
         }
         card.faceUp = !card.isFaceUp;
