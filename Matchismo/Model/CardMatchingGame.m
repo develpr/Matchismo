@@ -49,7 +49,7 @@
                         card.unplayable = YES;
                         otherCard.unplayable = YES;
                         self.score += matchScore * MATCH_BONUS;
-                        self.lastMessage = [NSString stringWithFormat:@"Matched %@ with %@", card.contents, otherCard.contents];
+                        self.lastMessage = [NSString stringWithFormat:@"Matched %@ with %@ for %d points!", card.contents, otherCard.contents, self.score];
                     } else{
                         otherCard.faceUp = NO;
                         self.score -= MISMATCH_PENALTY;
