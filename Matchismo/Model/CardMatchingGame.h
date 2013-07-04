@@ -13,13 +13,15 @@
 @interface CardMatchingGame : NSObject
 
 //Designated initializer
-- (id)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck;
+- (id)initWithCardCount:(NSUInteger)count
+              usingDeck:(Deck *)deck
+         matchCardCount:(int)cardsToMatch;
 
 - (void)flipCardAtIndex:(NSUInteger) index;
 - (Card *)cardAtIndex:(NSUInteger) index;
 
 @property (readonly, nonatomic) NSString *lastMessage;
 @property (readonly, nonatomic) int score;
-
-
+@property (nonatomic) int cardsToMatch;
+@property (nonatomic) bool activeGame;
 @end
