@@ -38,6 +38,9 @@
 
 - (void) flipCardAtIndex:(NSUInteger)index
 {
+    //Reset the message to a empty NSString so we can check if it's been set yet
+    self.lastMessage = @"";
+    
     Card *card = [self cardAtIndex:index];
     
     if(card && !card.isUnplayable){
@@ -52,6 +55,7 @@
                         self.lastMessage = [NSString stringWithFormat:@"Matched %@ with %@ for %d points!", card.contents, otherCard.contents, self.score];
                     } else{
                         otherCard.faceUp = NO;
+                        self.lastMessage = [NSString stringWithFormat:@"%@ and %@ don't match! %d point penalty!", card.contents, otherCard.contents, self.score];
                         self.score -= MISMATCH_PENALTY;
                     }
                     break;
