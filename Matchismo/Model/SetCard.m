@@ -20,21 +20,43 @@
     [content setAttributes:attributes range:range];
 }
 
-- (NSAttributedString *) content
+- (NSMutableAttributedString *) attributedContents
 {
     NSString *content = @"";
+    
     for(int i = 0; i < self.number; i++)
     {
         content = [content stringByAppendingString: self.shape];
     }
-    
-    _content = [[NSMutableAttributedString alloc] initWithString: content];
-    
-    UIColor *cardColor = [UIColor redColor];
 
-    [self addSelectedAttributes: @{NSForegroundColorAttributeName : cardColor} withContent:_content];
+    NSMutableAttributedString *attributedContents = [[NSMutableAttributedString alloc] initWithString: content];
+
+    UIColor *cardColor = [self calculateCardColor];
+        
+    [self addSelectedAttributes: @{ NSForegroundColorAttributeName : cardColor,
+                                    NSStrokeWidthAttributeName: @-2,
+     NSStrokeColorAttributeName: cardColor} withContent:attributedContents];
     
-    return _content;
+    return attributedContents;
+}
+
+- (UIColor *) calculateCardColor
+{
+    
+    UIColor *cardColor = [[UIColor alloc] init];
+    
+    if([self.color isEqualToString:@"red"]){
+        cardColor = [UIColor redColor];
+    }
+    else if([self.color isEqualToString:@"blue"]){
+        cardColor = [UIColor blueColor];
+    }
+    else
+    {
+        cardColor = [UIColor yellowColor];
+    }
+
+    return cardColor;
 }
 
 

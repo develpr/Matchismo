@@ -12,14 +12,13 @@
 @interface SetCard : Card
 
 @property (strong, nonatomic) NSString *shape;
-@property (strong, nonatomic) NSString *color;
+@property (strong, nonatomic) UIColor *color;
 @property (nonatomic) NSUInteger number;
 @property (nonatomic) NSUInteger shading;
-@property (strong, nonatomic) NSMutableAttributedString *content;
 
 + (NSArray *)validShapes;
 + (NSUInteger)maxNumber;
 + (NSUInteger)maxShade;
-+ (NSArray *)validColors;
++ (NSArray *)validColors;  //UIColors 
 
 @end
