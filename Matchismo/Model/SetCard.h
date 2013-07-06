@@ -15,7 +15,7 @@
 @property (strong, nonatomic) NSString *color;
 @property (nonatomic) NSUInteger number;
 @property (nonatomic) NSUInteger shading;
-@property (strong, nonatomic) NSAttributedString *content;
+@property (strong, nonatomic) NSMutableAttributedString *content;
 
 + (NSArray *)validShapes;
 + (NSUInteger)maxNumber;

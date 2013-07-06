@@ -6,8 +6,7 @@
 //  Copyright (c) 2013 Kevin Mitchell. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 
 @interface SetGameViewController : UIViewController
 

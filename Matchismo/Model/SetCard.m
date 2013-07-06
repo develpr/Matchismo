@@ -9,10 +9,16 @@
 #import "SetCard.h"
 
 @interface SetCard()
-    @property (readwrite, nonatomic) NSAttributedString *attributedContent;
+
 @end
 
 @implementation SetCard
+
+- (void) addSelectedAttributes:(NSDictionary *)attributes withContent:(NSMutableAttributedString *)content
+{
+    NSRange range = [[content string] rangeOfString:[content string]];
+    [content setAttributes:attributes range:range];
+}
 
 - (NSAttributedString *) content
 {
@@ -22,9 +28,13 @@
         content = [content stringByAppendingString: self.shape];
     }
     
-    NSAttributedString *attributedContent = [[NSAttributedString alloc] initWithString: content];
-//    [attributedContent ]
-    return attributedContent;
+    _content = [[NSMutableAttributedString alloc] initWithString: content];
+    
+    UIColor *cardColor = [UIColor redColor];
+
+    [self addSelectedAttributes: @{NSForegroundColorAttributeName : cardColor} withContent:_content];
+    
+    return _content;
 }
 
 
