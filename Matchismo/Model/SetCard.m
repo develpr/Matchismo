@@ -23,7 +23,7 @@
     }
     
     NSAttributedString *attributedContent = [[NSAttributedString alloc] initWithString: content];
-    
+//    [attributedContent ]
     return attributedContent;
 }
 
@@ -54,5 +54,34 @@
 {
     return @[@"red", @"green", @"blue"];
 }
+
+
+/*
+ *      SETTERS AND GETTERS
+ */
+- (void) setNumber:(NSUInteger)number
+{
+    if(number >= 1 && number <= [[self class] maxNumber])
+        _number = number;
+}
+
+- (void) setShading:(NSUInteger)shading
+{
+    if(shading >= 1 && shading <= [[self class] maxShade])
+        _shading = shading;
+}
+
+- (void) setColor:(NSString *)color
+{
+    if([[[self class] validColors] containsObject:color])
+        _color = color;
+}
+
+- (void) setShape:(NSString *)shape
+{
+    if([[[self class] validShapes] containsObject:shape])
+        _shape = shape;
+}
+
 
 @end
