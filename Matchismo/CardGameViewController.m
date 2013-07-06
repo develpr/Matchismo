@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameMode;
 
 @end
-
+    
 @implementation CardGameViewController
 
 - (IBAction)changeGameMode:(UISegmentedControl *)sender {

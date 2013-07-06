@@ -17,7 +17,7 @@
     
     if(self){
         for(NSString *shape in [SetCard validShapes]){
-            for(NSString *color in [SetCard validColors]){
+            for(UIColor *color in [SetCard validColors]){
                 for(NSUInteger number = 1; number <= [SetCard maxNumber]; number++){
                     for(NSUInteger shade = 1; shade <= [SetCard maxShade]; shade++){
                         SetCard *card = [[SetCard alloc] init];

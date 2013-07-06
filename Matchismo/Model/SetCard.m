@@ -32,31 +32,37 @@
     NSMutableAttributedString *attributedContents = [[NSMutableAttributedString alloc] initWithString: content];
 
     UIColor *cardColor = [self calculateCardColor];
-        
+    
+    
     [self addSelectedAttributes: @{ NSForegroundColorAttributeName : cardColor,
-                                    NSStrokeWidthAttributeName: @-2,
-     NSStrokeColorAttributeName: cardColor} withContent:attributedContents];
+                                    NSStrokeWidthAttributeName: [self calculateStroke],
+                                    NSStrokeColorAttributeName: cardColor} withContent:attributedContents];
     
     return attributedContents;
 }
 
 - (UIColor *) calculateCardColor
 {
+    UIColor *cardColor = self.color;
     
-    UIColor *cardColor = [[UIColor alloc] init];
-    
-    if([self.color isEqualToString:@"red"]){
-        cardColor = [UIColor redColor];
-    }
-    else if([self.color isEqualToString:@"blue"]){
-        cardColor = [UIColor blueColor];
-    }
-    else
+    if(self.shading == 2)
     {
-        cardColor = [UIColor yellowColor];
+        cardColor = [self.color colorWithAlphaComponent:.3];
     }
-
+    
     return cardColor;
+}
+
+- (NSNumber *) calculateStroke
+{
+    NSNumber *stroke = @0;
+    
+    if(self.shading == 3)
+    {
+        stroke = @8;
+    }
+    
+    return stroke;
 }
 
 
@@ -64,8 +70,56 @@
 {
     int points = 0;
     
+    NSString *previousShape = self.shape;
+    NSInteger previousShade = self.shading;
+    UIColor *previousColor = self.color;
+    NSInteger previousNumber = self.number;
+    
+    bool sameShape = true;
+    bool sameColor = true;
+    bool sameNumber = true;
+    bool sameShade = true;
+    
+    for(SetCard *otherCard in otherCards)
+    {
+        sameColor = [previousColor isEqual:otherCard.color] && sameColor;
+        sameShape = [previousShape isEqualToString:otherCard.shape] && sameShape;
+        sameNumber = (otherCard.number == previousNumber) && sameNumber;
+        sameShade = (otherCard.shading == previousShade) && sameShade;
+        previousColor = otherCard.color;
+        previousNumber = otherCard.number;
+        previousShape = otherCard.shape;
+        previousShade = otherCard.shading;
+    }
+    
+    bool differentShape = true;
+    bool differentColor = true;
+    bool differentNumber = true;
+    bool differentShade = true;
+    
+    previousShape = self.shape;
+    previousShade = self.shading;
+    previousColor = self.color;
+    previousNumber = self.number;
+    
+    for(SetCard *otherCard in otherCards)
+    {
+        differentColor = (![previousColor isEqual:otherCard.color]) && differentColor;
+        differentShape = (![previousShape isEqualToString:otherCard.shape]) && differentShape;
+        differentNumber = (!(otherCard.number == previousNumber)) && differentNumber;
+        differentShade = (!(otherCard.shading == previousShade)) && differentShade;
+        previousColor = otherCard.color;
+        previousNumber = otherCard.number;
+        previousShape = otherCard.shape;
+        previousShade = otherCard.shading;
+    }
+    
+    if((differentColor || previousColor) && (differentNumber || sameNumber) && (sameShape || differentShape) && (differentShape || sameShape))
+        points = 12;
+        
     return points;
 }
+
 
 + (NSUInteger) maxNumber
 {
@@ -84,7 +138,7 @@
 
 + (NSArray *) validColors
 {
-    return @[@"red", @"green", @"blue"];
+    return @[[UIColor redColor], [UIColor blackColor], [UIColor blueColor]];
 }
 
 
@@ -103,7 +157,7 @@
         _shading = shading;
 }
 
-- (void) setColor:(NSString *)color
+- (void) setColor:(UIColor *)color
 {
     if([[[self class] validColors] containsObject:color])
         _color = color;
