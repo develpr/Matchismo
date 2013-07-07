@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameMode;
 
 @end
-
+    
 @implementation CardGameViewController
 
 - (IBAction)changeGameMode:(UISegmentedControl *)sender {
@@ -96,7 +96,7 @@
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     }
     
-    self.statusLabel.text = self.game.lastMessage;
+    self.statusLabel.attributedText = self.game.lastMessage;
     
     //Disable the game mode switch if the game is active
     if(self.game.activeGame)
