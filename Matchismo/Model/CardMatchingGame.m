@@ -10,7 +10,7 @@
 
 @interface CardMatchingGame()
 @property (readwrite, nonatomic) int score;
-@property (readwrite, nonatomic) NSString *lastMessage;
+@property (readwrite, nonatomic) NSAttributedString *lastMessage;
 @property (strong, nonatomic) NSMutableArray *cards; //of Card
 @end
 
@@ -32,10 +32,10 @@
     return _cards;
 }
 
-- (NSString *)lastMessage
+- (NSAttributedString *)lastMessage
 {
     if(!_lastMessage)
-        _lastMessage = [[NSString alloc] init];
+        _lastMessage = [[NSAttributedString alloc] init];
     
     return _lastMessage;
 }
@@ -47,7 +47,7 @@
 - (void) flipCardAtIndex:(NSUInteger)index
 {
     //Reset the message to a empty NSString so we can check if it's been set yet
-    self.lastMessage = @"";
+    self.lastMessage = [[NSAttributedString alloc] initWithString:@""];
     
     //If a card has been flipped, then it's an active game
     self.activeGame = YES;
@@ -84,18 +84,18 @@
                     self.score += matchScore * MATCH_BONUS;
                     
                     //todo: update with property text
-                    self.lastMessage = [NSString stringWithFormat:@"Matched for %d points!", matchScore * MATCH_BONUS];
+                    self.lastMessage =  [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Matched for %d points!", matchScore * MATCH_BONUS]];
                 } else{
                     for(Card *otherCard in otherCards)
                         otherCard.faceUp = NO;
                     
-                    self.lastMessage = [NSString stringWithFormat:@"No Match! %d point penalty!", MISMATCH_PENALTY];
+                    self.lastMessage = [[NSAttributedString alloc] initWithString: [NSString stringWithFormat:@"No Match! %d point penalty!", MISMATCH_PENALTY]];
                     self.score -= MISMATCH_PENALTY;
                 }
             }
             
             if(self.lastMessage.length < 1)
-                self.lastMessage = @"-1 point for swapping a card!";
+                self.lastMessage = [[NSAttributedString alloc] initWithString:@"-1 point for swapping a card!"];
             self.score -= FLIP_COST;
         }
         card.faceUp = !card.isFaceUp;

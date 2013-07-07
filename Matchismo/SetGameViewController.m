@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *flipCounter;
 @property (nonatomic) int flipCount;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastMessage;
 
 @end
 
@@ -58,6 +59,8 @@
         [cardButton setAttributedTitle:card.attributedContents forState:UIControlStateNormal];
         
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+        
+        self.lastMessage.attributedText = self.game.lastMessage;
         
         if(card.isUnplayable)
             cardButton.backgroundColor = [UIColor redColor];
