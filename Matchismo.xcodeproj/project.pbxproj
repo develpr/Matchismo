@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F1D2BD9178F80EF0053F779 /* card.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F1D2BD7178F80EF0053F779 /* card.png */; };
+		4F1D2BDA178F80EF0053F779 /* cardfront.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F1D2BD8178F80EF0053F779 /* cardfront.png */; };
 		4F63BD2C178F7EFC005BAE3A /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F63BD25178F7EFC005BAE3A /* Card.m */; };
 		4F63BD2D178F7EFC005BAE3A /* CardMatchingGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F63BD27178F7EFC005BAE3A /* CardMatchingGame.m */; };
 		4F63BD2E178F7EFC005BAE3A /* SetCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F63BD29178F7EFC005BAE3A /* SetCard.m */; };
@@ -58,6 +60,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F1D2BD7178F80EF0053F779 /* card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card.png; sourceTree = "<group>"; };
+		4F1D2BD8178F80EF0053F779 /* cardfront.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardfront.png; sourceTree = "<group>"; };
 		4F63BD24178F7EFC005BAE3A /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
 		4F63BD25178F7EFC005BAE3A /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Card.m; sourceTree = "<group>"; };
 		4F63BD26178F7EFC005BAE3A /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardMatchingGame.h; sourceTree = "<group>"; };
@@ -219,6 +223,8 @@
 		EC9124EC169F9D8A0013B5C3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4F1D2BD7178F80EF0053F779 /* card.png */,
+				4F1D2BD8178F80EF0053F779 /* cardfront.png */,
 				EC9124F4169F9D8A0013B5C3 /* CardGameAppDelegate.h */,
 				EC9124F5169F9D8A0013B5C3 /* CardGameAppDelegate.m */,
 				EC9124ED169F9D8A0013B5C3 /* Matchismo-Info.plist */,
@@ -356,6 +362,8 @@
 				ECB8C03E16B8AAC3000822B9 /* Q♥@2x.jpg in Resources */,
 				ECB8C03F16B8AAC3000822B9 /* Q♦.jpg in Resources */,
 				ECB8C04016B8AAC3000822B9 /* Q♦@2x.jpg in Resources */,
+				4F1D2BD9178F80EF0053F779 /* card.png in Resources */,
+				4F1D2BDA178F80EF0053F779 /* cardfront.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
