@@ -16,13 +16,6 @@
 
 @implementation CardMatchingGame
 
-- (void) setCardsToMatch:(int)cardsToMatch
-{
-    if(cardsToMatch == 3)
-        _cardsToMatch = 3;
-    else
-        _cardsToMatch = 2;
-}
 
 - (NSMutableArray *)cards
 {
@@ -102,7 +95,7 @@
     }
 }
 
-- (id) initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck matchCardCount:(int)cardsToMatch
+- (id) initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
 {
     self = [super init];
     
@@ -117,9 +110,7 @@
                 break;
             }
         }
-        
-        self.cardsToMatch = cardsToMatch;
-        
+                
         //New games are not yet active
         self.activeGame = NO;
     }
