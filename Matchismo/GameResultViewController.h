@@ -1,5 +1,5 @@
 //
-//  CardGameAppDelegate.h
+//  GameResultViewController.h
 //  Matchismo
 //
 //  Created by CS193p Instructor.
@@ -9,8 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CardGameAppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
+@interface GameResultViewController : UIViewController
 
 @end

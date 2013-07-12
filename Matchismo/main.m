@@ -2,8 +2,9 @@
 //  main.m
 //  Matchismo
 //
-//  Created by Kevin Mitchell on 6/19/13.
-//  Copyright (c) 2013 Kevin Mitchell. All rights reserved.
+//  Created by CS193p Instructor.
+//  Copyright (c) 2013 Stanford University.
+//  All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

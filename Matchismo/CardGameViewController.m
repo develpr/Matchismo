@@ -2,63 +2,42 @@
 //  CardGameViewController.m
 //  Matchismo
 //
-//  Created by Kevin Mitchell on 6/19/13.
-//  Copyright (c) 2013 Kevin Mitchell. All rights reserved.
+//  Created by CS193p Instructor.
+//  Copyright (c) 2013 Stanford University.
+//  All rights reserved.
 //
 
 #import "CardGameViewController.h"
-#import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
+#import "GameResult.h"
 
-@interface CardGameViewController ()
+@interface CardGameViewController () <UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (nonatomic) int flipCount;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *gameMode;
-
+@property (strong, nonatomic) GameResult *gameResult;
+@property (weak, nonatomic) IBOutlet UICollectionView *cardCollectionView;
 @end
-    
+
 @implementation CardGameViewController
 
-- (IBAction)changeGameMode:(UISegmentedControl *)sender {
-    int cardsToMatch = [[sender titleForSegmentAtIndex:sender.selectedSegmentIndex] intValue];
-    
-    self.game.cardsToMatch = cardsToMatch;    
-}
+#pragma mark - Properties
 
-
-- (IBAction)dealGame:(UIButton *)sender {
-    
-    int cardsToMatch = [[self.gameMode titleForSegmentAtIndex:self.gameMode.selectedSegmentIndex] intValue];
-    
-    self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                                  usingDeck:[[PlayingCardDeck alloc] init]
-                                             matchCardCount:cardsToMatch];
-    self.flipCount = 0;
-    [self updateUI];
+- (GameResult *)gameResult
+{
+    if (!_gameResult) _gameResult = [[GameResult alloc] init];
+    return _gameResult;
 }
 
 - (CardMatchingGame *)game
 {
-    
-    int cardsToMatch = [[self.gameMode titleForSegmentAtIndex:self.gameMode.selectedSegmentIndex] intValue];
-    
-    if(!_game)
-        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                                  usingDeck:[[PlayingCardDeck alloc] init]
-                                             matchCardCount:cardsToMatch];
-    
+    if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:self.startingCardCount
+                                                          usingDeck:[self createDeck]];
     return _game;
 }
 
-- (void)setCardButtons:(NSArray *)cardButtons
-{
-    _cardButtons = cardButtons;
-    [self updateUI];
-}
+- (Deck *)createDeck { return nil; } // abstract
 
 - (void)setFlipCount:(int)flipCount
 {
@@ -66,51 +45,65 @@
     self.flipsLabel.text = [NSString stringWithFormat:@"Flips: %d", self.flipCount];
 }
 
-- (IBAction)flipCard:(UIButton *)sender
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
-    self.flipCount++;
-    [self updateUI];
+    return 1;
 }
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section
+{
+    return self.startingCardCount;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PlayingCard" forIndexPath:indexPath];
+    Card *card = [self.game cardAtIndex:indexPath.item];
+    [self updateCell:cell usingCard:card];
+    return cell;
+}
+
+- (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card
+{
+    // abstract
+}
+
+#pragma mark - Updating the UI
 
 - (void)updateUI
 {
-    UIImage *cardBackImage = [UIImage imageNamed:@"card.png"];
-    
-    for(UIButton *cardButton in self.cardButtons){
-        Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
-        [cardButton setTitle:card.contents forState:UIControlStateSelected];
-        [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];
-        
-        //Set the image background
-        if(!card.isFaceUp)
-            [cardButton setImage:cardBackImage forState:UIControlStateNormal];
-        else
-            [cardButton setImage:nil forState:UIControlStateNormal];
-        
-        cardButton.selected = card.isFaceUp;
-        cardButton.enabled = !card.isUnplayable;
-        
-        cardButton.alpha = (card.isUnplayable ? 0.3 : 1.0);
-        
-        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+    for (UICollectionViewCell *cell in [self.cardCollectionView visibleCells]) {
+        NSIndexPath *indexPath = [self.cardCollectionView indexPathForCell:cell];
+        Card *card = [self.game cardAtIndex:indexPath.item];
+        [self updateCell:cell usingCard:card];
     }
-    
-    self.statusLabel.attributedText = self.game.lastMessage;
-    
-    //Disable the game mode switch if the game is active
-    if(self.game.activeGame)
-    {
-        self.gameMode.userInteractionEnabled = NO;
-        self.gameMode.alpha = 0.3;
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+}
+
+#define pragma mark - Target/Action/Gestures
+
+- (IBAction)deal
+{
+    self.game = nil;
+    self.gameResult = nil;
+    self.flipCount = 0;
+    [self updateUI];
+}
+
+- (IBAction)flipCard:(UITapGestureRecognizer *)gesture
+{
+    CGPoint tapLocation = [gesture locationInView:self.cardCollectionView];
+    NSIndexPath *indexPath = [self.cardCollectionView indexPathForItemAtPoint:tapLocation];
+    if (indexPath) {
+        [self.game flipCardAtIndex:indexPath.item];
+        self.flipCount++;
+        [self updateUI];
+        self.gameResult.score = self.game.score;
     }
-    else
-    {
-        self.gameMode.userInteractionEnabled = YES;
-        self.gameMode.alpha = 1;
-    }
-    
-    
 }
 
 @end
