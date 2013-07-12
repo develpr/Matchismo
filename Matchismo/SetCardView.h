@@ -11,7 +11,7 @@
 @interface SetCardView : UIView
 
 @property (nonatomic, weak) UIColor *color;
-@property (nonatomic, weak) NSString * shape;
+@property (nonatomic) NSUInteger shape;
 @property (nonatomic) NSUInteger number;
 @property (nonatomic) NSUInteger shade;
 

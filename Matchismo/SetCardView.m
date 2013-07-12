@@ -11,6 +11,18 @@
 @implementation SetCardView
 
 #define CORNER_RADIUS 12.0
+#define PATH_WIDTH 3;
+
+//Shapes
+#define SHAPE_CIRCLE 1
+#define SHAPE_DIAMOND 2
+#define SHAPE_SQUIGLE 3
+
+//Shades
+#define SHADE_EMPTY 1
+#define SHADE_STRIPE 2
+#define SHADE_SOLID 3
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -40,16 +52,28 @@
     [roundedRect stroke];
     
     self.color = [UIColor redColor];
-    self.shape = @"diamdond";
+    self.shape = SHAPE_DIAMOND;
     self.number = 2;
     self.shade = 1;
     
     for(UIBezierPath *shape in [self getShapes]){
+        shape.lineWidth = PATH_WIDTH;
         [shape stroke];
+        [shape addClip];
+        [[UIColor redColor] setFill];
+        UIRectFill(shape.bounds);
+        [[UIColor blackColor] setStroke];
+        [roundedRect stroke];
     }
+    
+
+    
 
 }
 
+/**
+ *  This will give us an array of the shapes that we need. 
+ */
 - (NSArray *)getShapes
 {
     NSMutableArray *shapes = [[NSMutableArray alloc] init];
@@ -68,8 +92,18 @@
         
         currentXPosition += shapeWidth + 7;
         
-        UIBezierPath *shape = [UIBezierPath bezierPathWithRoundedRect:position cornerRadius:CORNER_RADIUS];
+        UIBezierPath *shape = [[UIBezierPath alloc]init];
         
+        if(self.shape == SHAPE_CIRCLE){
+            shape = [UIBezierPath bezierPathWithRoundedRect:position cornerRadius:CORNER_RADIUS];
+        }else if(self.shape == SHAPE_DIAMOND){
+            [shape moveToPoint:CGPointMake(position.origin.x + position.size.width/2, position.origin.y)];
+            [shape addLineToPoint:CGPointMake(position.origin.x + position.size.width, position.origin.y + position.size.height/2)];
+            [shape addLineToPoint:CGPointMake(position.origin.x + position.size.width/2, position.origin.y + position.size.height)];
+            [shape addLineToPoint:CGPointMake(position.origin.x, position.origin.y + position.size.height/2)];
+            [shape closePath];
+        }
+                
         [shapes addObject:shape];
         
     }
