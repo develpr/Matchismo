@@ -94,18 +94,25 @@
         
         UIBezierPath *shape = [[UIBezierPath alloc]init];
         
+        CGFloat originX = position.origin.x;
+        CGFloat originY = position.origin.y;
+        CGFloat height = position.size.height;
+        CGFloat width = position.size.width;
+        
         if(self.shape == SHAPE_CIRCLE){
             shape = [UIBezierPath bezierPathWithRoundedRect:position cornerRadius:CORNER_RADIUS];
         }else if(self.shape == SHAPE_DIAMOND){
-            [shape moveToPoint:CGPointMake(position.origin.x + position.size.width/2, position.origin.y)];
-            [shape addLineToPoint:CGPointMake(position.origin.x + position.size.width, position.origin.y + position.size.height/2)];
-            [shape addLineToPoint:CGPointMake(position.origin.x + position.size.width/2, position.origin.y + position.size.height)];
-            [shape addLineToPoint:CGPointMake(position.origin.x, position.origin.y + position.size.height/2)];
+            [shape moveToPoint:CGPointMake(originX + width/2, originY)];
+            [shape addLineToPoint:CGPointMake(originX + width, originY + height/2)];
+            [shape addLineToPoint:CGPointMake(originX + width/2, originY + height)];
+            [shape addLineToPoint:CGPointMake(originX, originY + height/2)];
             [shape closePath];
         }else if(self.shape == SHAPE_SQUIGLE){
-            [shape moveToPoint:CGPointMake(position.origin.x + position.size.width/2, position.origin.y)];
-            [shape addQuadCurveToPoint:CGPointMake(position.origin.x + position.size.width * .95, position.origin.y + position.size.height * .45)
-                          controlPoint:CGPointMake(position.origin.x + position.size.width * 1.5, position.origin.y)];
+            [shape moveToPoint:CGPointMake(originX + width/2, originY)];
+            [shape addQuadCurveToPoint:CGPointMake(originX + width * .95, originY + height * .45)
+                          controlPoint:CGPointMake(originX + width * 1.5, originY)];
+            [shape addQuadCurveToPoint:CGPointMake(originX + width, originY + height*.9)
+                          controlPoint:CGPointMake(originX + width/2, originY + height*.75)];
         }
                 
         [shapes addObject:shape];
