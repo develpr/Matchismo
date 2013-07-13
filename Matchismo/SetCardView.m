@@ -52,7 +52,7 @@
     [roundedRect stroke];
     
     self.color = [UIColor redColor];
-    self.shape = SHAPE_DIAMOND;
+    self.shape = SHAPE_SQUIGLE;
     self.number = 2;
     self.shade = 1;
     
@@ -60,7 +60,7 @@
         shape.lineWidth = PATH_WIDTH;
         [shape stroke];
         [shape addClip];
-        [[UIColor redColor] setFill];
+        //[[UIColor redColor] setFill];
         UIRectFill(shape.bounds);
         [[UIColor blackColor] setStroke];
         [roundedRect stroke];
@@ -102,6 +102,10 @@
             [shape addLineToPoint:CGPointMake(position.origin.x + position.size.width/2, position.origin.y + position.size.height)];
             [shape addLineToPoint:CGPointMake(position.origin.x, position.origin.y + position.size.height/2)];
             [shape closePath];
+        }else if(self.shape == SHAPE_SQUIGLE){
+            [shape moveToPoint:CGPointMake(position.origin.x + position.size.width/2, position.origin.y)];
+            [shape addQuadCurveToPoint:CGPointMake(position.origin.x + position.size.width * .95, position.origin.y + position.size.height * .45)
+                          controlPoint:CGPointMake(position.origin.x + position.size.width * 1.5, position.origin.y)];
         }
                 
         [shapes addObject:shape];
