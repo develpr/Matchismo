@@ -15,4 +15,6 @@
 @property (nonatomic) NSUInteger number;
 @property (nonatomic) NSUInteger shade;
 
+@property (nonatomic) BOOL faceUp;
+
 @end

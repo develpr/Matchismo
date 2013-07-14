@@ -216,12 +216,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Matchismo/SetCardView.m"
-         timestampString = "395302168.156467"
+         timestampString = "395446790.428032"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "60"
-         endingLineNumber = "60"
-         landmarkName = "-getShapes"
+         startingLineNumber = "71"
+         endingLineNumber = "71"
+         landmarkName = "-drawRect:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Matchismo/SetCardView.m"
+         timestampString = "395446790.428032"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "134"
+         endingLineNumber = "134"
+         landmarkName = "-getCGRectShapePositionWithIndex:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

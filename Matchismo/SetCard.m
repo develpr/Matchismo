@@ -70,8 +70,8 @@
 {
     int points = 0;
     
-    NSString *previousShape = self.shape;
-    NSInteger previousShade = self.shading;
+    NSUInteger *previousShape = self.shape;
+    NSInteger previousShade = self.shade;
     UIColor *previousColor = self.color;
     NSInteger previousNumber = self.number;
     
@@ -83,13 +83,13 @@
     for(SetCard *otherCard in otherCards)
     {
         sameColor = [previousColor isEqual:otherCard.color] && sameColor;
-        sameShape = [previousShape isEqualToString:otherCard.shape] && sameShape;
+        sameShape = (otherCard.shape == previousShape) && sameShape;
         sameNumber = (otherCard.number == previousNumber) && sameNumber;
-        sameShade = (otherCard.shading == previousShade) && sameShade;
+        sameShade = (otherCard.shade == previousShade) && sameShade;
         previousColor = otherCard.color;
         previousNumber = otherCard.number;
         previousShape = otherCard.shape;
-        previousShade = otherCard.shading;
+        previousShade = otherCard.shade;
     }
     
     bool differentShape = true;
@@ -98,20 +98,20 @@
     bool differentShade = true;
     
     previousShape = self.shape;
-    previousShade = self.shading;
+    previousShade = self.shade;
     previousColor = self.color;
     previousNumber = self.number;
     
     for(SetCard *otherCard in otherCards)
     {
         differentColor = (![previousColor isEqual:otherCard.color]) && differentColor;
-        differentShape = (![previousShape isEqualToString:otherCard.shape]) && differentShape;
+        differentShape = (!(otherCard.shape == previousShape)) && differentShape;
         differentNumber = (!(otherCard.number == previousNumber)) && differentNumber;
-        differentShade = (!(otherCard.shading == previousShade)) && differentShade;
+        differentShade = (!(otherCard.shade == previousShade)) && differentShade;
         previousColor = otherCard.color;
         previousNumber = otherCard.number;
         previousShape = otherCard.shape;
-        previousShade = otherCard.shading;
+        previousShade = otherCard.shade;
     }
     
     if((differentColor || previousColor) && (differentNumber || sameNumber) && (sameShape || differentShape) && (differentShape || sameShape))
@@ -131,14 +131,14 @@
     return 3;
 }
 
-+ (NSArray *) validShapes
++ (NSUInteger) maxShape
 {
-    return @[@"▲",@"●",@"■"];
+    return 3;
 }
 
 + (NSArray *) validColors
 {
-    return @[[UIColor redColor], [UIColor blackColor], [UIColor blueColor]];
+    return @[[UIColor redColor], [UIColor purpleColor], [UIColor greenColor]];
 }
 
 
@@ -151,10 +151,10 @@
         _number = number;
 }
 
-- (void) setShading:(NSUInteger)shading
+- (void) setShading:(NSUInteger)shade
 {
-    if(shading >= 1 && shading <= [[self class] maxShade])
-        _shading = shading;
+    if(shade >= 1 && shade <= [[self class] maxShade])
+        _shade = shade;
 }
 
 - (void) setColor:(UIColor *)color
@@ -163,9 +163,9 @@
         _color = color;
 }
 
-- (void) setShape:(NSString *)shape
+- (void) setShape:(NSUInteger)shape
 {
-    if([[[self class] validShapes] containsObject:shape])
+    if(shape >= 1 && shape <= [[self class] maxShape])
         _shape = shape;
 }
 
