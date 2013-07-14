@@ -10,13 +10,20 @@
 #import "SetCard.h"
 #import "SetCardDeck.h"
 #import "SetCardCollectionViewCell.h"
-#import "
+#import "CardMatchingGame.h"
 
-@interface SetCardGameViewController ()
-
+@interface SetCardGameViewController () <UICollectionViewDataSource>
+@property (strong, nonatomic) CardMatchingGame *game;
 @end
 
 @implementation SetCardGameViewController
+
+- (CardMatchingGame *)game
+{
+    if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:self.startingCardCount
+                                                          usingDeck:[self createDeck]];
+    return _game;
+}
 
 - (Deck *)createDeck
 {
@@ -41,10 +48,24 @@
             setCardView.shade = setCard.shade;
             setCardView.shape = setCard.shape;
             
-            setCardView.faceUp = setCard.isFaceUp;
-            
+            setCardView.faceUp = setCard.isFaceUp;            
         }
     }
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section
+{
+    return self.startingCardCount;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SetCard" forIndexPath:indexPath];
+    Card *card = [self.game cardAtIndex:indexPath.item];
+    [self updateCell:cell usingCard:card];
+    return cell;
 }
 
 @end

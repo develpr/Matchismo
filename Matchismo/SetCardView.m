@@ -24,6 +24,35 @@
 #define SHADE_STRIPE 2
 #define SHADE_SOLID 3
 
+- (void)setFaceUp:(BOOL)faceUp
+{
+    _faceUp = faceUp;
+    [self setNeedsDisplay];
+}
+
+- (void)setColor:(UIColor *)color
+{
+    _color = color;
+    [self setNeedsDisplay];
+}
+     
+- (void)setShape:(NSUInteger)shape
+{
+    _shape = shape;
+    [self setNeedsDisplay];
+}
+
+- (void)setShade:(NSUInteger)shade
+{
+    _shade = shade;
+    [self setNeedsDisplay];
+}
+
+- (void)setNumber:(NSUInteger)number
+{
+    _number = number;
+    [self setNeedsDisplay];
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -85,7 +114,7 @@
     [self pushContext];
     [shape addClip];
 
-    UIRectFill(self.bounds);
+    //UIRectFill(self.bounds);
     
     if(self.shade == SHADE_SOLID){
         [self.color setFill];

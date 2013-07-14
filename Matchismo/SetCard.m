@@ -14,11 +14,6 @@
 
 @implementation SetCard
 
-- (void) addSelectedAttributes:(NSDictionary *)attributes withContent:(NSMutableAttributedString *)content
-{
-    NSRange range = [[content string] rangeOfString:[content string]];
-    [content setAttributes:attributes range:range];
-}
 
 - (int) match:(NSArray *)otherCards
 {
@@ -105,7 +100,7 @@
         _number = number;
 }
 
-- (void) setShading:(NSUInteger)shade
+- (void) setShade:(NSUInteger)shade
 {
     if(shade >= 1 && shade <= [[self class] maxShade])
         _shade = shade;
