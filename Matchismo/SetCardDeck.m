@@ -16,7 +16,7 @@
     self = [super init];
     
     if(self){
-        for(NSString *shape in [SetCard validShapes]){
+        for(NSUInteger shape = 1; shape <= [SetCard maxShape]; shape++){
             for(UIColor *color in [SetCard validColors]){
                 for(NSUInteger number = 1; number <= [SetCard maxNumber]; number++){
                     for(NSUInteger shade = 1; shade <= [SetCard maxShade]; shade++){
@@ -24,7 +24,7 @@
                         card.shape = shape;
                         card.color = color;
                         card.number = number;
-                        card.shading = shade;
+                        card.shade = shade;
                         
                         [self addCard:card atTop:YES];
                     }

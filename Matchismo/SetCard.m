@@ -20,57 +20,11 @@
     [content setAttributes:attributes range:range];
 }
 
-- (NSMutableAttributedString *) attributedContents
-{
-    NSString *content = @"";
-    
-    for(int i = 0; i < self.number; i++)
-    {
-        content = [content stringByAppendingString: self.shape];
-    }
-
-    NSMutableAttributedString *attributedContents = [[NSMutableAttributedString alloc] initWithString: content];
-
-    UIColor *cardColor = [self calculateCardColor];
-    
-    
-    [self addSelectedAttributes: @{ NSForegroundColorAttributeName : cardColor,
-                                    NSStrokeWidthAttributeName: [self calculateStroke],
-                                    NSStrokeColorAttributeName: cardColor} withContent:attributedContents];
-    
-    return attributedContents;
-}
-
-- (UIColor *) calculateCardColor
-{
-    UIColor *cardColor = self.color;
-    
-    if(self.shading == 2)
-    {
-        cardColor = [self.color colorWithAlphaComponent:.3];
-    }
-    
-    return cardColor;
-}
-
-- (NSNumber *) calculateStroke
-{
-    NSNumber *stroke = @0;
-    
-    if(self.shading == 3)
-    {
-        stroke = @8;
-    }
-    
-    return stroke;
-}
-
-
 - (int) match:(NSArray *)otherCards
 {
     int points = 0;
     
-    NSUInteger *previousShape = self.shape;
+    NSUInteger previousShape = self.shape;
     NSInteger previousShade = self.shade;
     UIColor *previousColor = self.color;
     NSInteger previousNumber = self.number;

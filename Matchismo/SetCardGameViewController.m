@@ -10,6 +10,7 @@
 #import "SetCard.h"
 #import "SetCardDeck.h"
 #import "SetCardCollectionViewCell.h"
+#import "
 
 @interface SetCardGameViewController ()
 
@@ -40,11 +41,8 @@
             setCardView.shade = setCard.shade;
             setCardView.shape = setCard.shape;
             
+            setCardView.faceUp = setCard.isFaceUp;
             
-            playingCardView.rank = playingCard.rank;
-            playingCardView.suit = playingCard.suit;
-            playingCardView.faceUp = playingCard.isFaceUp;
-            playingCardView.alpha = playingCard.isUnplayable ? 0.3 : 1.0;
         }
     }
 }
