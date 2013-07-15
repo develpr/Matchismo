@@ -15,7 +15,9 @@
 
 // all of the following methods must be overriden by concrete subclasses
 - (Deck *)createDeck; // abstract
+- (void)drawAdditionalCards:(NSUInteger) cardsToDraw;
 @property (readonly, nonatomic) NSUInteger startingCardCount; // abstract
 - (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card; // abstract
+
 
 @end

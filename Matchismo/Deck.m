@@ -43,5 +43,15 @@
     return randomCard;
 }
 
+- (NSUInteger)cardsInDeck
+{
+    NSUInteger cardCount = 0;
+    if(self.cards)
+        cardCount = [self.cards count];
+    
+    return cardCount;
+}
+
+
 @end
 

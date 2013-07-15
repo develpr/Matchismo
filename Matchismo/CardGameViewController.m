@@ -55,7 +55,9 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-    return self.startingCardCount;
+    NSUInteger itemCount = [self.game cardsInPlay];
+
+    return itemCount;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
@@ -91,6 +93,12 @@
     self.game = nil;
     self.gameResult = nil;
     self.flipCount = 0;
+    [self updateUI];
+}
+
+- (void)drawAdditionalCards:(NSUInteger) cardsToDraw
+{
+    [self.game drawAdditionalCards:cardsToDraw];
     [self updateUI];
 }
 

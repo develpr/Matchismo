@@ -30,9 +30,13 @@
     return [[SetCardDeck alloc] init];
 }
 
+- (IBAction)drawThreeCards {
+    [self drawAdditionalCards:3];
+}
+
 - (NSUInteger)startingCardCount
 {
-    return 20;
+    return 12;
 }
 
 - (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card
@@ -56,7 +60,10 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-    return self.startingCardCount;
+    NSUInteger itemCount = [self.game cardsInPlay];
+    
+    return itemCount;
+    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView

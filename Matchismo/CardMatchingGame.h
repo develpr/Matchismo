@@ -18,9 +18,14 @@
 
 - (void)flipCardAtIndex:(NSUInteger) index;
 - (Card *)cardAtIndex:(NSUInteger) index;
+- (void) drawAdditionalCards:(NSUInteger) cardsToDraw;
+- (NSUInteger) cardsRemaining;
+- (NSUInteger) cardsInPlay;
 
 @property (readonly, nonatomic) NSAttributedString *lastMessage;
+
 @property (readonly, nonatomic) int score;
 @property (nonatomic) int cardsToMatch;
 @property (nonatomic) bool activeGame;
+
 @end

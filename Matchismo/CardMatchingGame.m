@@ -12,6 +12,8 @@
 @property (readwrite, nonatomic) int score;
 @property (readwrite, nonatomic) NSAttributedString *lastMessage;
 @property (strong, nonatomic) NSMutableArray *cards; //of Card
+@property (strong, nonatomic) Deck *deck;
+
 @end
 
 @implementation CardMatchingGame
@@ -66,7 +68,7 @@
 
             }
 
-            if(cardsFound == self.cardsToMatch)
+            if(cardsFound == 3)
             {
                 int matchScore = [card match:otherCards];
                 if(matchScore)
@@ -100,8 +102,9 @@
     self = [super init];
     
     if(self){
+        self.deck = deck;
         for(int i = 0; i < count; i++){
-            Card *card = [deck drawRandomCard];
+            Card *card = [self.deck drawRandomCard];
             if(card){
                 self.cards[i] = card;
             }
@@ -114,8 +117,30 @@
         //New games are not yet active
         self.activeGame = NO;
     }
-    
+        
     return self;
+}
+
+- (NSUInteger)cardsRemaining
+{
+    return [self.deck cardsInDeck];
+}
+
+- (NSUInteger)cardsInPlay
+{
+    return [self.cards count];
+}
+
+- (void) drawAdditionalCards:(NSUInteger)cardsToDraw
+{
+    cardsToDraw = MIN(cardsToDraw, [self cardsRemaining]);
+    
+    for(int i = 1; i <= cardsToDraw; i++){
+        Card *card = [self.deck drawRandomCard];
+        if(card){
+            [self.cards addObject:card];
+        }
+    }
 }
 
 - (Card *) cardAtIndex:(NSUInteger)index
