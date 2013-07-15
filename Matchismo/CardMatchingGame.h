@@ -21,6 +21,8 @@
 - (void) drawAdditionalCards:(NSUInteger) cardsToDraw;
 - (NSUInteger) cardsRemaining;
 - (NSUInteger) cardsInPlay;
+- (NSUInteger) playableCards;
+- (NSArray *) unplayableIndexes;
 
 @property (readonly, nonatomic) NSAttributedString *lastMessage;
 

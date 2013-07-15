@@ -39,6 +39,8 @@
     return 12;
 }
 
+#pragma mark - UICollectionViewDataSource
+
 - (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card
 {
     
@@ -57,10 +59,11 @@
     }
 }
 
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-    NSUInteger itemCount = [self.game cardsInPlay];
+    NSUInteger itemCount = [self.game playableCards];
     
     return itemCount;
     

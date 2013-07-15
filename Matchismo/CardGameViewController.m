@@ -78,11 +78,32 @@
 
 - (void)updateUI
 {
-    for (UICollectionViewCell *cell in [self.cardCollectionView visibleCells]) {
-        NSIndexPath *indexPath = [self.cardCollectionView indexPathForCell:cell];
-        Card *card = [self.game cardAtIndex:indexPath.item];
-        [self updateCell:cell usingCard:card];
+    int difference = [self.cardCollectionView numberOfItemsInSection:0] - [self collectionView:self.cardCollectionView numberOfItemsInSection:0];
+    NSLog(@"UpdateUI: %d", difference);
+    
+    if(difference > 0){
+        NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
+        
+        for (UICollectionViewCell *cell in [self.cardCollectionView visibleCells]) {
+            NSIndexPath *indexPath = [self.cardCollectionView indexPathForCell:cell];
+            Card *card = [self.game cardAtIndex:indexPath.item];
+            if(card.isUnplayable)
+                [indexPaths addObject:indexPath];
+            else
+                [self updateCell:cell usingCard:card];
+        }
+        
+        [self.cardCollectionView deleteItemsAtIndexPaths:indexPaths];
+        
+    }else{
+        
+        for (UICollectionViewCell *cell in [self.cardCollectionView visibleCells]) {
+            NSIndexPath *indexPath = [self.cardCollectionView indexPathForCell:cell];
+            Card *card = [self.game cardAtIndex:indexPath.item];
+            [self updateCell:cell usingCard:card];
+        }
     }
+    
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
@@ -93,13 +114,39 @@
     self.game = nil;
     self.gameResult = nil;
     self.flipCount = 0;
+    [self.cardCollectionView reloadData];
     [self updateUI];
 }
 
 - (void)drawAdditionalCards:(NSUInteger) cardsToDraw
 {
+    int difference = [self.cardCollectionView numberOfItemsInSection:0] - [self collectionView:self.cardCollectionView numberOfItemsInSection:0];
+    NSLog(@"UpdateUI: %d", difference);
+    
+    NSUInteger preCount = [self.game cardsInPlay];
+    
     [self.game drawAdditionalCards:cardsToDraw];
+    
+    NSUInteger postCount = [self.game cardsInPlay];
+    
+    NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
+    
+    for(int i = preCount; i < postCount; i++){
+        [indexPaths addObject:[NSIndexPath indexPathForItem:i inSection:0]];
+    }
+    
+    NSIndexPath *scrollIndex = [indexPaths lastObject];
+
+    [self.cardCollectionView insertItemsAtIndexPaths:indexPaths];
+    
     [self updateUI];
+    
+    [self.cardCollectionView scrollToItemAtIndexPath:scrollIndex atScrollPosition:UICollectionViewScrollPositionBottom animated:YES];
+}
+
+- (void)removeUnplayableCards
+{
+    
 }
 
 - (IBAction)flipCard:(UITapGestureRecognizer *)gesture

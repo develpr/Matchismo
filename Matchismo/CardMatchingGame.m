@@ -131,9 +131,42 @@
     return [self.cards count];
 }
 
+- (NSUInteger)playableCards
+{
+    NSUInteger playableCards = 0;
+    for(Card *card in self.cards){
+        if(!card.isUnplayable){
+            playableCards++;
+        }
+    }
+    return playableCards;
+}
+
+- (NSArray *) unplayableIndexes
+{
+    NSMutableArray *unplayableIndexes = [[NSMutableArray alloc]init];
+    
+    for(Card *card in self.cards){
+        if(card.isUnplayable){
+            [unplayableIndexes addObject:[NSNumber numberWithInt:[self.cards indexOfObject:card]]];
+        }
+    }
+    
+    return unplayableIndexes;
+}
+
 - (void) drawAdditionalCards:(NSUInteger)cardsToDraw
 {
     cardsToDraw = MIN(cardsToDraw, [self cardsRemaining]);
+    
+    if(cardsToDraw == 0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No more cards"
+                                                        message:@"All cards have been drawn from the deck."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
     
     for(int i = 1; i <= cardsToDraw; i++){
         Card *card = [self.deck drawRandomCard];
