@@ -22,7 +22,7 @@
 - (NSUInteger) cardsRemaining;
 - (NSUInteger) cardsInPlay;
 - (NSUInteger) playableCards;
-- (NSArray *) unplayableIndexes;
+- (NSArray *) removeUnplayableCards;
 
 @property (readonly, nonatomic) NSAttributedString *lastMessage;
 

@@ -142,18 +142,6 @@
     return playableCards;
 }
 
-- (NSArray *) unplayableIndexes
-{
-    NSMutableArray *unplayableIndexes = [[NSMutableArray alloc]init];
-    
-    for(Card *card in self.cards){
-        if(card.isUnplayable){
-            [unplayableIndexes addObject:[NSNumber numberWithInt:[self.cards indexOfObject:card]]];
-        }
-    }
-    
-    return unplayableIndexes;
-}
 
 - (void) drawAdditionalCards:(NSUInteger)cardsToDraw
 {
@@ -174,6 +162,21 @@
             [self.cards addObject:card];
         }
     }
+}
+
+- (NSArray *) removeUnplayableCards
+{
+    NSMutableArray *unplayableIndexes = [[NSMutableArray alloc]init];
+    
+    NSArray *tempArray = [self.cards copy];
+    for(Card *card in tempArray){
+        if(card.isUnplayable){
+            [unplayableIndexes addObject:[NSNumber numberWithInt:[self.cards indexOfObject:card]]];
+            [self.cards removeObject:card];
+        }
+    }
+    
+    return unplayableIndexes;
 }
 
 - (Card *) cardAtIndex:(NSUInteger)index

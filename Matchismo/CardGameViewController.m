@@ -8,16 +8,16 @@
 //
 
 #import "CardGameViewController.h"
-#import "CardMatchingGame.h"
 #import "GameResult.h"
+#import "CardMatchingGame.h"
 
 @interface CardGameViewController () <UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (nonatomic) int flipCount;
-@property (strong, nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) GameResult *gameResult;
 @property (weak, nonatomic) IBOutlet UICollectionView *cardCollectionView;
+@property (strong, nonatomic) CardMatchingGame *game;
 @end
 
 @implementation CardGameViewController
@@ -78,30 +78,10 @@
 
 - (void)updateUI
 {
-    int difference = [self.cardCollectionView numberOfItemsInSection:0] - [self collectionView:self.cardCollectionView numberOfItemsInSection:0];
-    NSLog(@"UpdateUI: %d", difference);
-    
-    if(difference > 0){
-        NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
-        
-        for (UICollectionViewCell *cell in [self.cardCollectionView visibleCells]) {
-            NSIndexPath *indexPath = [self.cardCollectionView indexPathForCell:cell];
-            Card *card = [self.game cardAtIndex:indexPath.item];
-            if(card.isUnplayable)
-                [indexPaths addObject:indexPath];
-            else
-                [self updateCell:cell usingCard:card];
-        }
-        
-        [self.cardCollectionView deleteItemsAtIndexPaths:indexPaths];
-        
-    }else{
-        
-        for (UICollectionViewCell *cell in [self.cardCollectionView visibleCells]) {
-            NSIndexPath *indexPath = [self.cardCollectionView indexPathForCell:cell];
-            Card *card = [self.game cardAtIndex:indexPath.item];
-            [self updateCell:cell usingCard:card];
-        }
+    for (UICollectionViewCell *cell in [self.cardCollectionView visibleCells]) {
+        NSIndexPath *indexPath = [self.cardCollectionView indexPathForCell:cell];
+        Card *card = [self.game cardAtIndex:indexPath.item];
+        [self updateCell:cell usingCard:card];
     }
     
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
@@ -147,6 +127,16 @@
 - (void)removeUnplayableCards
 {
     
+        NSArray *indexes = [self.game removeUnplayableCards];
+        NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
+    
+        for(NSNumber *index in indexes){
+            [indexPaths addObject:[NSIndexPath indexPathForItem:[index integerValue] inSection:0]];
+        }
+    
+        [self.cardCollectionView deleteItemsAtIndexPaths:indexPaths];
+        
+    
 }
 
 - (IBAction)flipCard:(UITapGestureRecognizer *)gesture
@@ -156,6 +146,10 @@
     if (indexPath) {
         [self.game flipCardAtIndex:indexPath.item];
         self.flipCount++;
+        
+        
+        [self removeUnplayableCards];
+        
         [self updateUI];
         self.gameResult.score = self.game.score;
     }
