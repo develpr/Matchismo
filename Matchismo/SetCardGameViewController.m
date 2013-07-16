@@ -63,7 +63,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-    NSUInteger itemCount = [self.game playableCards];
+    NSUInteger itemCount = [self.game cardsInPlay];
     
     return itemCount;
     

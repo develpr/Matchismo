@@ -56,6 +56,9 @@
      numberOfItemsInSection:(NSInteger)section
 {
     NSUInteger itemCount = [self.game cardsInPlay];
+    NSUInteger playableCount = [self.game playableCards];
+    
+    NSLog(@"Using: %d   Could be: %d", itemCount, playableCount);
 
     return itemCount;
 }
