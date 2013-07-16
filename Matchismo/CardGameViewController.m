@@ -103,8 +103,6 @@
 
 - (void)drawAdditionalCards:(NSUInteger) cardsToDraw
 {
-    int difference = [self.cardCollectionView numberOfItemsInSection:0] - [self collectionView:self.cardCollectionView numberOfItemsInSection:0];
-    NSLog(@"UpdateUI: %d", difference);
     
     NSUInteger preCount = [self.game cardsInPlay];
     
@@ -130,16 +128,15 @@
 - (void)removeUnplayableCards
 {
     
-        NSArray *indexes = [self.game removeUnplayableCards];
-        NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
-    
-        for(NSNumber *index in indexes){
-            [indexPaths addObject:[NSIndexPath indexPathForItem:[index integerValue] inSection:0]];
-        }
-    
-        [self.cardCollectionView deleteItemsAtIndexPaths:indexPaths];
-        
-    
+    NSArray *indexes = [self.game removeUnplayableCards];
+    NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
+
+    for(NSNumber *index in indexes){
+        [indexPaths addObject:[NSIndexPath indexPathForItem:[index integerValue] inSection:0]];
+    }
+
+    [self.cardCollectionView deleteItemsAtIndexPaths:indexPaths];
+
 }
 
 - (IBAction)flipCard:(UITapGestureRecognizer *)gesture

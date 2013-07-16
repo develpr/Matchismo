@@ -46,24 +46,26 @@
     bool differentNumber = true;
     bool differentShade = true;
     
-    previousShape = self.shape;
-    previousShade = self.shade;
-    previousColor = self.color;
-    previousNumber = self.number;
+    NSMutableArray *allCards = [otherCards mutableCopy];
+    [allCards addObject:self];
     
-    for(SetCard *otherCard in otherCards)
+    for(SetCard *otherCard in allCards)
     {
-        differentColor = (![previousColor isEqual:otherCard.color]) && differentColor;
-        differentShape = (!(otherCard.shape == previousShape)) && differentShape;
-        differentNumber = (!(otherCard.number == previousNumber)) && differentNumber;
-        differentShade = (!(otherCard.shade == previousShade)) && differentShade;
-        previousColor = otherCard.color;
-        previousNumber = otherCard.number;
-        previousShape = otherCard.shape;
-        previousShade = otherCard.shade;
+        for(SetCard *anotherCard in allCards)
+        {
+            if([anotherCard isEqual:otherCard]){
+                continue;
+            }
+            
+            differentColor = (![anotherCard.color isEqual:otherCard.color]) && differentColor;
+            differentShape = (!(otherCard.shape == anotherCard.shape)) && differentShape;
+            differentNumber = (!(otherCard.number == anotherCard.number)) && differentNumber;
+            differentShade = (!(otherCard.shade == anotherCard.shade)) && differentShade;
+
+        }
     }
-    
-    if((differentColor || previousColor) && (differentNumber || sameNumber) && (sameShape || differentShape) && (differentShape || sameShape))
+        
+    if((differentColor || sameColor) && (differentNumber || sameNumber) && (sameShape || differentShape) && (differentShade || sameShade))
         points = 12;
         
     return points;

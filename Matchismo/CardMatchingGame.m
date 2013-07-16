@@ -171,7 +171,7 @@
     NSArray *tempArray = [self.cards copy];
     for(Card *card in tempArray){
         if(card.isUnplayable){
-            [unplayableIndexes addObject:[NSNumber numberWithInt:[self.cards indexOfObject:card]]];
+            [unplayableIndexes addObject:[NSNumber numberWithInt:[tempArray indexOfObject:card]]];
             [self.cards removeObject:card];
         }
     }
