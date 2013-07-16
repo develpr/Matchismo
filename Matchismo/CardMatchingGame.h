@@ -23,6 +23,7 @@
 - (NSUInteger) cardsInPlay;
 - (NSUInteger) playableCards;
 - (NSArray *) removeUnplayableCards;
+- (NSArray *) flippedCards;
 
 @property (readonly, nonatomic) NSAttributedString *lastMessage;
 

@@ -14,6 +14,9 @@
 
 @interface SetCardGameViewController () <UICollectionViewDataSource>
 @property (strong, nonatomic) CardMatchingGame *game;
+@property (weak, nonatomic) IBOutlet SetCardView *selectedCard1;
+@property (weak, nonatomic) IBOutlet SetCardView *selectedCard2;
+
 @end
 
 @implementation SetCardGameViewController
@@ -22,6 +25,7 @@
 {
     if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:self.startingCardCount
                                                           usingDeck:[self createDeck]];
+    
     return _game;
 }
 
@@ -43,6 +47,23 @@
 
 - (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card
 {
+    NSArray *flippedCards = [self.game flippedCards];
+    [self clearDisplayCards];
+    int count = 1;
+    for(SetCard *card in flippedCards){
+        if(count == 1){
+            self.selectedCard1.number = card.number;
+            self.selectedCard1.shape = card.shape;
+            self.selectedCard1.shade = card.shade;
+            self.selectedCard1.color = card.color;
+        }else{
+            self.selectedCard2.number = card.number;
+            self.selectedCard2.shape = card.shape;
+            self.selectedCard2.shade = card.shade;
+            self.selectedCard2.color = card.color;
+        }
+        count++;
+    }
     
     if ([cell isKindOfClass:[SetCardCollectionViewCell class]]) {
         SetCardView *setCardView = ((SetCardCollectionViewCell *)cell).setCardView;
@@ -54,9 +75,32 @@
             setCardView.shade = setCard.shade;
             setCardView.shape = setCard.shape;
             
-            setCardView.faceUp = setCard.isFaceUp;            
+            setCardView.faceUp = setCard.isFaceUp;
+            
+            if(setCardView.faceUp){
+                self.selectedCard1.number = setCard.number;
+                self.selectedCard1.shape = setCard.shape;
+                self.selectedCard1.shade = setCard.shade;
+                self.selectedCard1.color = setCard.color;
+            }
         }
     }
+}
+
+
+
+- (void)clearDisplayCards
+{
+        
+    self.selectedCard1.number = nil;
+    self.selectedCard1.shape = nil;
+    self.selectedCard1.shade = nil;
+    self.selectedCard1.color = nil;
+    self.selectedCard2.color = nil;
+    self.selectedCard2.shape = nil;
+    self.selectedCard2.shade = nil;
+    self.selectedCard2.number = nil;
+    
 }
 
 

@@ -142,6 +142,18 @@
     return playableCards;
 }
 
+- (NSArray *)flippedCards
+{
+    NSMutableArray *flippedCards = [[NSMutableArray alloc]init];
+    
+    for(Card *card in self.cards){
+        if(card.isFaceUp){
+            [flippedCards addObject:card];
+        }
+    }
+    
+    return flippedCards;
+}
 
 - (void) drawAdditionalCards:(NSUInteger)cardsToDraw
 {
